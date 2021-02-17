@@ -5,6 +5,7 @@ WFLAGS := -Wall -Wextra
 SRCDIR := src
 BUILDDIR := build
 INCDIR := include
+INTDIR := interfaces
 BINDIR := bin
 EXEC := exec.out
 TARGET := $(BINDIR)/$(EXEC)
@@ -14,7 +15,7 @@ SRC := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJ := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SRC:.$(SRCEXT)=.o))
 
 # LIB := -pthread
-INC := -I $(INCDIR)
+INC := -I $(INCDIR) -I $(INTDIR)
 
 run: $(TARGET)
 	./$<
@@ -25,7 +26,7 @@ $(TARGET): $(OBJ)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	mkdir -p $(BUILDDIR)
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	$(CC) $(CFLAGS) $(INC) $< -c -o $@ $(WFLAGS)
 
 clean:
 	rm -rf $(BUILDDIR) $(BINDIR)
