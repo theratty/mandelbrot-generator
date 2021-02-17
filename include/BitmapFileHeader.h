@@ -2,7 +2,8 @@
 
 #include <cstdint>
 
-#pragma pack(1)
+#pragma pack(push, 1)
+
 struct BitmapFileHeader
 {
     const char* header = "BM";
@@ -10,3 +11,5 @@ struct BitmapFileHeader
     int32_t reserved{0};
     int32_t dataOffSet;
 };
+
+#pragma pack(pop)
